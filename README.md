@@ -7,7 +7,7 @@ mvn compile package
 ```
 cd target & java -jar crazy-eight-1.0-SNAPSHOT.jar server
 ```
-## start clinet
+## start client
 ```
-cd target & java -jar crazy-eight-1.0-SNAPSHOT.jar clinet
+cd target & java -jar crazy-eight-1.0-SNAPSHOT.jar client
 ```
