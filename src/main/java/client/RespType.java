@@ -3,7 +3,7 @@ package client;
 public enum RespType {
     NEW_PLAYER,
     DEAL_RESULT,
-    NEW_TURN,
+    FORCE_DRAW,
     NEW_CARD,
     ROUND_RESULT,
     GAME_RESULT,

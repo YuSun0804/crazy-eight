@@ -1,5 +1,7 @@
 package server;
 
+import java.util.Objects;
+
 public class Card {
     public final static Card NULL_CARD = new Card();
 
@@ -32,6 +34,7 @@ public class Card {
 
     public int getCalValue() {
         if (value == 11 || value == 12 || value == 13) return 10;
+        if (value == 8) return 50;
         return value;
     }
 
@@ -51,7 +54,11 @@ public class Card {
 
     @Override
     public String toString() {
-        return value + suit.name();
+        if (this != NULL_CARD) {
+            return getTextValue() + suit.name();
+        } else {
+            return "NULL_CARD";
+        }
     }
 
     public String encode() {
@@ -69,5 +76,19 @@ public class Card {
         card.setValue(getValueFromText(c.substring(0, c.length() - 1)));
         card.setSuit(Suit.valueOf(c.substring(c.length() - 1)));
         return card;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Card card = (Card) o;
+        return getValue() == card.getValue() &&
+                getSuit() == card.getSuit();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getValue(), getSuit());
     }
 }

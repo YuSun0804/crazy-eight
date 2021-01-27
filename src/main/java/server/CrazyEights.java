@@ -10,6 +10,17 @@ public class CrazyEights {
     private Map<String, Integer> scorePad;
     private int nextDrawNum = 1;
     private String winner;
+    private boolean isClockwise = true;
+
+    public Map<String, Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Map<String, Player> players) {
+        this.players = players;
+    }
+
+    private int currentPlayer = 1;
 
     public CrazyEights() {
         cardList = new ArrayList<>();
@@ -37,7 +48,6 @@ public class CrazyEights {
 
     public Card getCard() {
         if (usedCardSet.size() == 52) return Card.NULL_CARD;
-        System.out.println(usedCardSet.size());
         return getCardInner();
     }
 
@@ -73,6 +83,9 @@ public class CrazyEights {
     }
 
     public void setTopCard(Card topCard) {
+        if (topCard.getValue() == 2) {
+            this.nextDrawNum = this.nextDrawNum * 2;
+        }
         this.topCard = topCard;
     }
 
@@ -107,7 +120,8 @@ public class CrazyEights {
                 Player player = entry.getValue();
                 int score = scorePad.get(playerId);
                 if (score < winnerScore) {
-                    winner = player.getName();
+                    winner = player.getId();
+                    winnerScore = score;
                 }
             }
         }
@@ -128,22 +142,20 @@ public class CrazyEights {
         return dealCards(player);
     }
 
-    public int matchCard(String playerId, String cardIndex, boolean updateTop) {
+    public int playCard(String playerId, int cardIndex, boolean updateTop) {
         Player player = players.get(playerId);
-        if (updateTop) {
-            topCard = player.getCardList().get(Integer.parseInt(cardIndex));
-        }
-        if (topCard.getValue() == 2) {
-            nextDrawNum = nextDrawNum * 2;
-        }
-        return player.matchCard(cardIndex);
+        return player.playCard(cardIndex, updateTop);
     }
 
     public Card drawCard(String playerId) {
         Player player = players.get(playerId);
-        Card card = this.getCard();
-        player.addCard(card);
+        Card card = player.draw();
         return card;
+    }
+
+    public void skip(String playerId) {
+        Player player = players.get(playerId);
+        player.skip();
     }
 
     public String getWinner() {
@@ -152,5 +164,36 @@ public class CrazyEights {
 
     public void setWinner(String winner) {
         this.winner = winner;
+    }
+
+    public String calNextOne(boolean isSkip) {
+        if (!isSkip) {
+            Card topCard = this.getTopCard();
+            if (topCard.getValue() == 12) {
+                return calNext(2);
+            } else if (topCard.getValue() == 1) {
+                isClockwise = !isClockwise;
+                return calNext(1);
+            }
+        }
+        return calNext(1);
+    }
+
+    private String calNext(int next) {
+        if (isClockwise) {
+            currentPlayer = (currentPlayer + next) % players.size();
+        } else {
+            currentPlayer = (currentPlayer - next + players.size()) % players.size();
+        }
+        if (currentPlayer == 0) currentPlayer = players.size();
+        return currentPlayer + "";
+    }
+
+    public String getCurrentPlayer() {
+        return currentPlayer + "";
+    }
+
+    public void setCurrentPlayer(int currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 }

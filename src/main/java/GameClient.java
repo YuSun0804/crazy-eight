@@ -28,21 +28,27 @@ public class GameClient {
         try {
             Scanner scanner = new Scanner(System.in);
             socket = new Socket("localhost", 3333);
-            waitAndParseResp();
 
             System.out.println("Please input player name");
             String name = scanner.next();
-            ReqMessage reqMessage = new ReqMessage(ReqType.SEND_NAME, playerId + ":" + name);
-            write(reqMessage);
-            System.out.println("Hi, " + name + " connect success!");
-
-            waitAndParseResp();
-
-            while (topCard == null) {
-                waitAndParseResp();
-            }
 
             while (true) {
+
+                while (playerId == null) {
+                    waitAndParseResp();
+                    ReqMessage reqMessage = new ReqMessage(ReqType.SEND_NAME, playerId + ":" + name);
+                    write(reqMessage);
+                    System.out.println("Hi, " + name + " connect success!");
+                }
+
+                while (cardList == null) {
+                    waitAndParseResp();
+                }
+
+                if (topCard == null) {
+                    waitAndParseResp();
+                }
+
                 int cardIndex = scanner.nextInt();
                 while (!isMatch(cardIndex)) {
                     System.out.println("The card you choose is not match with top card, please choose again");
@@ -50,26 +56,24 @@ public class GameClient {
                 }
 
                 if (skipCount >= 3 || !canDrawNew) {
-                    reqMessage = new ReqMessage(ReqType.SKIP_TURN, playerId);
+                    ReqMessage reqMessage = new ReqMessage(ReqType.SKIP_TURN, playerId);
                     write(reqMessage);
                     waitAndParseResp();
                     skipCount = 0;
+                    topCard = null;
                 } else if (cardIndex == -1) {
-                    reqMessage = new ReqMessage(ReqType.DRAW_NEW, playerId);
+                    ReqMessage reqMessage = new ReqMessage(ReqType.DRAW_NEW, playerId);
                     write(reqMessage);
                     waitAndParseResp();
                     skipCount++;
                 } else {
-                    if (drawNum > 1) {
-                        reqMessage = new ReqMessage(ReqType.MATCH_CARD_FOR_TWO, playerId + ":" + cardIndex);
-                    } else {
-                        reqMessage = new ReqMessage(ReqType.MATCH_CARD, playerId + ":" + cardIndex);
-                    }
+                    ReqMessage reqMessage = new ReqMessage(ReqType.MATCH_CARD, playerId + ":" + cardIndex);
                     write(reqMessage);
                     cardList.remove(cardIndex);
                     System.out.println("You have finished current turn, the cards you have are " + cardList);
                     waitAndParseResp();
                     skipCount = 0;
+                    topCard = null;
                 }
             }
 
@@ -95,22 +99,31 @@ public class GameClient {
                     break;
                 case NEW_TOP_CARD:
                     String messageBody = respMessage.getMessageBody();
-                    String[] split = messageBody.split("-");
-                    topCard = new Gson().fromJson(split[0], Card.class);
-                    drawNum = Integer.parseInt(split[1]);
+                    topCard = new Gson().fromJson(messageBody, Card.class);
                     System.out.println("The top card is " + topCard + ", you choose card to match");
-                    System.out.println("****Press -1 to draw a new card");
+                    System.out.println(" **** Press -1 to draw a new card");
                     for (int i = 0; i < cardList.size(); i++) {
-                        System.out.println("****Press " + i + " to draw " + cardList.get(i));
+                        System.out.println(" **** Press " + i + " to draw " + cardList.get(i));
                     }
                     break;
+                case FORCE_DRAW:
+                    Card card = new Gson().fromJson(respMessage.getMessageBody(), Card.class);
+                    if (card == Card.NULL_CARD) {
+                        System.out.println("There is no new cards, the cards you get are still " + cardList);
+                        canDrawNew = false;
+                    } else {
+                        cardList.add(card);
+                        System.out.println("The cards you get are " + cardList + ", you choose card to match(starting with 0), or press -1 to draw a new card");
+                    }
+                    ReqMessage reqMessage = new ReqMessage(ReqType.DRAW_NEW_FOR_TWO, playerId);
+                    write(reqMessage);
+                    waitAndParseResp();
                 case DEAL_RESULT:
-                    cardList = new Gson().fromJson(respMessage.getMessageBody(), new TypeToken<List<Card>>() {
-                    }.getType());
+                    cardList = new Gson().fromJson(respMessage.getMessageBody(), new TypeToken<List<Card>>() {}.getType());
                     System.out.println("The cards you get are " + cardList);
                     break;
                 case NEW_CARD:
-                    Card card = new Gson().fromJson(respMessage.getMessageBody(), Card.class);
+                    card = new Gson().fromJson(respMessage.getMessageBody(), Card.class);
                     if (card == Card.NULL_CARD) {
                         System.out.println("There is no new cards, the cards you get are still " + cardList);
                         canDrawNew = false;
@@ -123,11 +136,9 @@ public class GameClient {
                     System.out.println("The round score is " + respMessage.getMessageBody());
                     break;
                 case GAME_RESULT:
-                    split = respMessage.getMessageBody().split("-");
-                    System.out.println("The final score is " + split[0] + ", winner is " + split[1]);
+                    String[] split = respMessage.getMessageBody().split("-");
+                    System.out.println("The final score is " + split[0] + ", winner is Player" + split[1]);
                     break;
-                case NULL:
-                    waitAndParseResp();
             }
         }
     }
