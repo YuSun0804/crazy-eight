@@ -87,7 +87,8 @@ public class Player {
     }
 
     public boolean play(Card card) {
-        if (card.getValue() == crazyEights.getTopCard().getValue() || card.getSuit() == crazyEights.getTopCard().getSuit()) {
+        if (card.getValue() == crazyEights.getTopCard().getValue() || card.getSuit() == crazyEights.getTopCard().getSuit()
+                || (crazyEights.getTopCard().getValue() == 8 && card.getSuit() == crazyEights.getSuit())) {
             drawCount = 0;
             return true;
         }

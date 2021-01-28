@@ -9,8 +9,9 @@ public class CrazyEights {
     private Map<String, Player> players;
     private Map<String, Integer> scorePad;
     private int nextDrawNum = 1;
-    private String winner;
+    private String winner = "";
     private boolean isClockwise = true;
+    private Suit suit;
 
     public Map<String, Player> getPlayers() {
         return players;
@@ -162,6 +163,10 @@ public class CrazyEights {
         return winner;
     }
 
+    public boolean isGameOver() {
+        return !"".equals(winner);
+    }
+
     public void setWinner(String winner) {
         this.winner = winner;
     }
@@ -195,5 +200,13 @@ public class CrazyEights {
 
     public void setCurrentPlayer(int currentPlayer) {
         this.currentPlayer = currentPlayer;
+    }
+
+    public Suit getSuit() {
+        return suit;
+    }
+
+    public void setSuit(Suit suit) {
+        this.suit = suit;
     }
 }

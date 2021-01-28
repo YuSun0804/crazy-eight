@@ -3,11 +3,11 @@ GameClient.class
 GameClient$1.class
 client/ReqMessage.class
 server/CrazyEights.class
+Main.class
 server/Card.class
 GameServer.class
 client/RespMessage.class
 GameClient$2.class
-Game.class
 client/RespType.class
 server/Suit.class
 server/Player.class

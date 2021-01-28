@@ -35,7 +35,7 @@ public class GameTest {
         System.out.println("player1's card list is " + player1.getCardList());
 
         player2.addCard(new Card(4, Suit.S)).addCard(new Card(6, Suit.S))
-                .addCard(new Card(13, Suit.C)).addCard(new Card(8, Suit.D))
+                .addCard(new Card(13, Suit.C)).addCard(new Card(8, Suit.H))
                 .addCard(new Card(11, Suit.D));
         System.out.println("player2's card list is " + player2.getCardList());
 
@@ -70,7 +70,8 @@ public class GameTest {
 
         draw(player1, new Card(9, Suit.C));
         play(player1, new Card(9, Suit.C));
-        play(player2, new Card(8, Suit.D));
+        play(player2, new Card(8, Suit.H));
+        crazyEights.setSuit(Suit.D);
         play(player3, new Card(12, Suit.D));
         play(player4, new Card(7, Suit.D));
         System.out.println("--------------------");
@@ -80,8 +81,7 @@ public class GameTest {
         System.out.println("--------------------");
 
         score();
-        String winner = crazyEights.getWinner();
-        Assert.assertEquals(null, winner);
+        Assert.assertEquals(false, crazyEights.isGameOver());
 
         player1.addCard(new Card(1, Suit.D)).addCard(new Card(4, Suit.S))
                 .addCard(new Card(1, Suit.C)).addCard(new Card(4, Suit.H))
@@ -130,7 +130,7 @@ public class GameTest {
 
         score();
 
-        winner = crazyEights.getWinner();
+        String winner = crazyEights.getWinner();
         System.out.println("Player" + winner + " win the game");
         Assert.assertEquals("3", winner);
     }

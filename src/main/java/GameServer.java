@@ -22,6 +22,7 @@ public class GameServer {
     private int connectedPlayerNum;
     private Map<String, SocketChannel> clientChannelMap = new HashMap<>();
     private Set<String> skippedPlayers = new HashSet<>();
+    private int closeNum;
 
     public GameServer() {
         Scanner scanner = new Scanner(System.in);
@@ -39,6 +40,7 @@ public class GameServer {
             System.out.println("Game server started with " + totalPlayerNums + " player(s)");
 
             while (true) {
+                if (totalPlayerNums == closeNum) break;
                 selector.select();
                 Set<SelectionKey> keys = selector.selectedKeys();
                 Iterator<SelectionKey> keyIterator = keys.iterator();
@@ -85,6 +87,7 @@ public class GameServer {
             processRequest(req, socketChannel);
         } else {
             socketChannel.close();
+            closeNum++;
         }
     }
 
@@ -111,7 +114,12 @@ public class GameServer {
                 split1 = reqMessage.getMessageBody().split(":");
                 skippedPlayers.remove(split1[0]);
                 int remainCard = crazyEights.playCard(split1[0], Integer.parseInt(split1[1]), reqMessage.getReqType() == ReqType.MATCH_CARD);
-                if (remainCard > 0) {
+                if (remainCard == 0) {
+                    Map<String, Integer> scorePad = crazyEights.calculateScore();
+                    broadCastRoundResult(scorePad);
+                }
+
+                if (!crazyEights.isGameOver()) {
                     sendBuffer = ByteBuffer.wrap(RespMessage.NULL_MESSAGE.encode().getBytes());
                     socketChannel.write(sendBuffer);
                     Card card = crazyEights.getTopCard();
@@ -121,13 +129,13 @@ public class GameServer {
                     } else {
                         respMessage.setRespType(RespType.NEW_TOP_CARD);
                     }
-
-                    respMessage.setMessageBody(new Gson().toJson(card));
+                    if (card.getValue() == 8) {
+                        respMessage.setMessageBody(new Gson().toJson(card) + "-" + split1[2]);
+                    } else {
+                        respMessage.setMessageBody(new Gson().toJson(card));
+                    }
                     sendBuffer = ByteBuffer.wrap(respMessage.encode().getBytes());
                     clientChannelMap.get(crazyEights.calNextOne(false)).write(sendBuffer);
-                } else {
-                    Map<String, Integer> scorePad = crazyEights.calculateScore();
-                    broadCastRoundResult(scorePad);
                 }
                 break;
             case DRAW_NEW_FOR_TWO:
@@ -158,7 +166,8 @@ public class GameServer {
                 if (skippedPlayers.size() == totalPlayerNums) {
                     Map<String, Integer> scorePad = crazyEights.calculateScore();
                     broadCastRoundResult(scorePad);
-                } else {
+                }
+                if (!crazyEights.isGameOver()) {
                     sendBuffer = ByteBuffer.wrap(RespMessage.NULL_MESSAGE.encode().getBytes());
                     socketChannel.write(sendBuffer);
 
@@ -173,7 +182,7 @@ public class GameServer {
 
     private void broadCastRoundResult(Map<String, Integer> scorePad) throws IOException {
         RespMessage respMessage = new RespMessage();
-        if ("".equals(crazyEights.getWinner())) {
+        if (!crazyEights.isGameOver()) {
             respMessage.setRespType(RespType.ROUND_RESULT);
             respMessage.setMessageBody(scorePad.toString());
         } else {
