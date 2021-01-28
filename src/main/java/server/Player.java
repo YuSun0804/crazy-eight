@@ -42,11 +42,20 @@ public class Player {
     }
 
     public int playCard(int cardIndex, boolean updateTop) {
-        if (play(cardList.get(cardIndex)) && updateTop) {
+        if (canPlay(cardList.get(cardIndex)) && updateTop) {
             crazyEights.setTopCard(cardList.get(cardIndex));
             cardList.remove(cardIndex);
         }
         return cardList.size();
+    }
+
+    public boolean forceToDraw() {
+        for (Card card : cardList) {
+            if (canPlay(card)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public int playCard(Card card, boolean updateTop) {
@@ -59,7 +68,7 @@ public class Player {
 
     public boolean drawPlay(Card card) {
         cardList.add(card);
-        if (play(card)) {
+        if (canPlay(card)) {
             crazyEights.setTopCard(card);
             cardList.remove(card);
             return true;
@@ -86,7 +95,7 @@ public class Player {
         drawCount = 0;
     }
 
-    public boolean play(Card card) {
+    public boolean canPlay(Card card) {
         if (card.getValue() == crazyEights.getTopCard().getValue() || card.getSuit() == crazyEights.getTopCard().getSuit()
                 || (crazyEights.getTopCard().getValue() == 8 && card.getSuit() == crazyEights.getSuit())) {
             drawCount = 0;

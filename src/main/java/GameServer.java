@@ -91,6 +91,11 @@ public class GameServer {
         }
     }
 
+    private void startNew() {
+        crazyEights = new CrazyEights();
+        crazyEights.drawTopCard();
+    }
+
     private void processRequest(String req, SocketChannel socketChannel) throws IOException {
         ReqMessage reqMessage = ReqMessage.decode(req);
         RespMessage respMessage = new RespMessage();

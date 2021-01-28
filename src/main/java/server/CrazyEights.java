@@ -209,4 +209,5 @@ public class CrazyEights {
     public void setSuit(Suit suit) {
         this.suit = suit;
     }
+
 }
