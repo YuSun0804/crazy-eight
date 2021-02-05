@@ -40,7 +40,7 @@ public class GameTest {
         System.out.println("player2's card list is " + player2.getCardList());
 
         player3.addCard(new Card(5, Suit.S)).addCard(new Card(6, Suit.C))
-                .addCard(new Card(12, Suit.C)).addCard(new Card(12, Suit.D))
+                .addCard(new Card(12, Suit.C)).addCard(new Card(11, Suit.D))
                 .addCard(new Card(3, Suit.H));
         System.out.println("player3's card list is " + player3.getCardList());
 
@@ -69,11 +69,12 @@ public class GameTest {
         play(player4, new Card(3, Suit.C));
         System.out.println("--------------------");
 
-        draw(player1, new Card(9, Suit.C));
-        play(player1, new Card(9, Suit.C));
+        draw(player1, new Card(7, Suit.C));
+        play(player1, new Card(7, Suit.C));
         play(player2, new Card(8, Suit.H));
         crazyEights.setSuit(Suit.D);
-        play(player3, new Card(12, Suit.D));
+        System.out.println("the next suit is " +Suit.D.name());
+        play(player3, new Card(11, Suit.D));
         play(player4, new Card(7, Suit.D));
         System.out.println("--------------------");
 
@@ -86,54 +87,56 @@ public class GameTest {
         System.out.println("--------------------");
 
         crazyEights.setTopCard(new Card(10, Suit.D));
-        player1.addCard(new Card(1, Suit.D)).addCard(new Card(4, Suit.S))
-                .addCard(new Card(1, Suit.C)).addCard(new Card(4, Suit.H))
+        System.out.println("top card is " + crazyEights.getTopCard());
+
+        player1.addCard(new Card(7, Suit.D)).addCard(new Card(4, Suit.S))
+                .addCard(new Card(7, Suit.C)).addCard(new Card(4, Suit.H))
                 .addCard(new Card(5, Suit.D));
         System.out.println("player1's card list is " + player1.getCardList());
 
-        player2.addCard(new Card(2, Suit.D)).addCard(new Card(3, Suit.S))
-                .addCard(new Card(2, Suit.C)).addCard(new Card(3, Suit.H))
+        player2.addCard(new Card(9, Suit.D)).addCard(new Card(3, Suit.S))
+                .addCard(new Card(9, Suit.C)).addCard(new Card(3, Suit.H))
                 .addCard(new Card(11, Suit.C));
         System.out.println("player2's card list is " + player2.getCardList());
 
-        player3.addCard(new Card(3, Suit.D)).addCard(new Card(2, Suit.S))
-                .addCard(new Card(3, Suit.C)).addCard(new Card(2, Suit.H))
+        player3.addCard(new Card(3, Suit.D)).addCard(new Card(9, Suit.S))
+                .addCard(new Card(3, Suit.C)).addCard(new Card(9, Suit.H))
                 .addCard(new Card(5, Suit.H));
         System.out.println("player3's card list is " + player3.getCardList());
 
-        player4.addCard(new Card(4, Suit.D)).addCard(new Card(1, Suit.S))
+        player4.addCard(new Card(4, Suit.D)).addCard(new Card(7, Suit.S))
                 .addCard(new Card(4, Suit.C)).addCard(new Card(5, Suit.S))
                 .addCard(new Card(8, Suit.D));
         System.out.println("player4's card list is " + player4.getCardList());
         System.out.println("--------------------");
 
-        play(player1, new Card(1, Suit.D));
-        play(player2, new Card(2, Suit.D));
+        play(player1, new Card(7, Suit.D));
+        play(player2, new Card(9, Suit.D));
         play(player3, new Card(3, Suit.D));
         play(player4, new Card(4, Suit.D));
         System.out.println("--------------------");
 
         play(player1, new Card(4, Suit.S));
         play(player2, new Card(3, Suit.S));
-        play(player3, new Card(2, Suit.S));
-        play(player4, new Card(1, Suit.S));
+        play(player3, new Card(9, Suit.S));
+        play(player4, new Card(7, Suit.S));
         System.out.println("--------------------");
 
-        play(player1, new Card(1, Suit.C));
-        play(player2, new Card(2, Suit.C));
+        play(player1, new Card(7, Suit.C));
+        play(player2, new Card(9, Suit.C));
         play(player3, new Card(3, Suit.C));
         play(player4, new Card(4, Suit.C));
         System.out.println("--------------------");
 
         play(player1, new Card(4, Suit.H));
         play(player2, new Card(3, Suit.H));
-        play(player3, new Card(2, Suit.H));
-        draw(player4, new Card(13, Suit.S)).draw(player4, new Card(12, Suit.S)).draw(player4, new Card(1, Suit.H));
-        play(player4, new Card(1, Suit.H));
+        play(player3, new Card(9, Suit.H));
+        draw(player4, new Card(13, Suit.S)).draw(player4, new Card(12, Suit.S)).draw(player4, new Card(13, Suit.H));
+        play(player4, new Card(13, Suit.H));
         System.out.println("--------------------");
 
-        draw(player1, new Card(6, Suit.D)).draw(player1, new Card(7, Suit.D)).draw(player1, new Card(9, Suit.D));
-        draw(player2, new Card(6, Suit.S)).draw(player2, new Card(7, Suit.S)).draw(player2, new Card(9, Suit.S));
+        draw(player1, new Card(6, Suit.D)).draw(player1, new Card(10, Suit.D)).draw(player1, new Card(11, Suit.D));
+        draw(player2, new Card(6, Suit.S)).draw(player2, new Card(11, Suit.S)).draw(player2, new Card(10, Suit.S));
         play(player3, new Card(5, Suit.H));
         System.out.println("--------------------");
 

@@ -23,7 +23,7 @@ public class IndividualTest {
     }
 
     @Test
-    public void testNextPlayer() {
+    public void test47() {
         crazyEights.setTopCard(new Card(3, Suit.C));
         System.out.println("top card is " + crazyEights.getTopCard());
         crazyEights.setCurrentPlayer(1);
@@ -34,138 +34,364 @@ public class IndividualTest {
     }
 
     @Test
-    public void testNextPlayerWithOne() {
-        crazyEights.setTopCard(new Card(1, Suit.C));
+    public void test48() {
+        crazyEights.setTopCard(new Card(1, Suit.H));
         System.out.println("top card is " + crazyEights.getTopCard());
         crazyEights.setCurrentPlayer(1);
         System.out.println("current player is 1");
         String next = crazyEights.calNextOne(false);
         System.out.println("next player is " + next);
+        System.out.println("play direction is " + crazyEights.getDirection());
         Assert.assertEquals("4", next);
+        next = crazyEights.calNextOne(false);
+        System.out.println("next player is " + next);
+        System.out.println("play direction is " + crazyEights.getDirection());
+        Assert.assertEquals("3", next);
     }
 
     @Test
-    public void testNextPlayerWithQueen() {
+    public void test50() {
         crazyEights.setTopCard(new Card(12, Suit.C));
         System.out.println("top card is " + crazyEights.getTopCard());
         crazyEights.setCurrentPlayer(1);
-        System.out.println("current player is 1");
+        System.out.println("current player is " + crazyEights.getCurrentPlayer());
         String next = crazyEights.calNextOne(false);
         System.out.println("next player is " + next);
         Assert.assertEquals("3", next);
     }
 
     @Test
-    public void testCardCannotBePlayed() {
+    public void test51() {
+        crazyEights.setTopCard(new Card(3, Suit.C));
+        System.out.println("top card is " + crazyEights.getTopCard());
+        crazyEights.setCurrentPlayer(4);
+        System.out.println("current player is " + crazyEights.getCurrentPlayer());
+        String next = crazyEights.calNextOne(false);
+        System.out.println("next player is " + next);
+        Assert.assertEquals("1", next);
+    }
+
+    @Test
+    public void test52() {
+        crazyEights.setTopCard(new Card(1, Suit.H));
+        System.out.println("top card is " + crazyEights.getTopCard());
+        crazyEights.setCurrentPlayer(4);
+        System.out.println("current player is " + crazyEights.getCurrentPlayer());
+        String next = crazyEights.calNextOne(false);
+        System.out.println("next player is " + next);
+        Assert.assertEquals("3", next);
+        next = crazyEights.calNextOne(false);
+        System.out.println("next player is " + next);
+        System.out.println("play direction is " + crazyEights.getDirection());
+        Assert.assertEquals("2", next);
+    }
+
+    @Test
+    public void test54() {
         crazyEights.setTopCard(new Card(12, Suit.C));
         System.out.println("top card is " + crazyEights.getTopCard());
-        Card card = new Card(1, Suit.S);
+        crazyEights.setCurrentPlayer(4);
+        System.out.println("current player is " + crazyEights.getCurrentPlayer());
+        String next = crazyEights.calNextOne(false);
+        System.out.println("next player is " + next);
+        Assert.assertEquals("2", next);
+    }
+
+
+    @Test
+    public void test57() {
+        crazyEights.setTopCard(new Card(13, Suit.C));
+        System.out.println("top card is " + crazyEights.getTopCard());
+        Card card = new Card(13, Suit.H);
+        boolean played = player1.canPlay(card);
+        System.out.println("the card played is " + card);
+        Assert.assertEquals(true, played);
+    }
+
+
+    @Test
+    public void test58() {
+        crazyEights.setTopCard(new Card(13, Suit.C));
+        System.out.println("top card is " + crazyEights.getTopCard());
+        Card card = new Card(7, Suit.C);
+        boolean played = player1.canPlay(card);
+        System.out.println("the card played is " + card);
+        Assert.assertEquals(true, played);
+    }
+
+    @Test
+    public void test59() {
+        crazyEights.setTopCard(new Card(13, Suit.C));
+        System.out.println("top card is " + crazyEights.getTopCard());
+        Card card = new Card(8, Suit.H);
+        boolean played = player1.canPlay(card);
+        System.out.println("the card played is " + card);
+        Assert.assertEquals(true, played);
+        System.out.println("choose a suit");
+    }
+
+    @Test
+    public void test60() {
+        crazyEights.setTopCard(new Card(13, Suit.C));
+        System.out.println("top card is " + crazyEights.getTopCard());
+        Card card = new Card(5, Suit.S);
         boolean played = player1.canPlay(card);
         System.out.println("the card played is " + card);
         Assert.assertEquals(false, played);
     }
 
     @Test
-    public void testCardCanBePlayed() {
-        crazyEights.setTopCard(new Card(12, Suit.C));
+    public void test63() {
+        crazyEights.setTopCard(new Card(7, Suit.C));
         System.out.println("top card is " + crazyEights.getTopCard());
-        Card card = new Card(8, Suit.S);
-        boolean played = player1.canPlay(card);
-        System.out.println("the card played is " + card);
-        Assert.assertEquals(true, played);
-    }
-
-    @Test
-    public void testCardCanBePlayed2() {
-        crazyEights.setTopCard(new Card(12, Suit.C));
-        System.out.println("top card is " + crazyEights.getTopCard());
-        Card card = new Card(1, Suit.C);
-        boolean played = player1.canPlay(card);
-        System.out.println("the card played is " + card);
-        Assert.assertEquals(true, played);
-    }
-
-    @Test
-    public void testDraw2Cards() {
-        crazyEights.setTopCard(new Card(2, Suit.C));
-        System.out.println("top card is " + crazyEights.getTopCard());
-        int nextDrawNum = crazyEights.getNextDrawNum();
-        System.out.println("next player need to draw " + nextDrawNum + " cards");
-        Assert.assertEquals(2, nextDrawNum);
-    }
-
-
-    @Test
-    public void testPlayedEight() {
-        crazyEights.setTopCard(new Card(12, Suit.C));
-        System.out.println("top card is " + crazyEights.getTopCard());
-        Card card = new Card(8, Suit.S);
-        crazyEights.setSuit(Suit.D);
-        boolean played = player1.canPlay(card);
-        System.out.println("the card played is " + card);
-        Assert.assertEquals(true, played);
-    }
-
-    @Test
-    public void testForceToDraw() {
-        crazyEights.setTopCard(new Card(1, Suit.C));
-        System.out.println("top card is " + crazyEights.getTopCard());
-        player1.addCard(new Card(2, Suit.D)).addCard(new Card(4, Suit.S));
+        player1.addCard(new Card(3, Suit.H));
         System.out.println("car list is " + player1.getCardList());
         boolean b = player1.forceToDraw();
+        Assert.assertEquals(true, b);
+        boolean b1 = player1.drawPlay(new Card(6, Suit.C));
+        System.out.println("the card draw is 6C");
+        if (b1) {
+            System.out.println("the card played is 6C");
+        }
+        Assert.assertEquals(true, b1);
+    }
+
+    @Test
+    public void test64() {
+        crazyEights.setTopCard(new Card(7, Suit.C));
+        System.out.println("top card is " + crazyEights.getTopCard());
+        player1.addCard(new Card(3, Suit.H));
+        System.out.println("car list is " + player1.getCardList());
+        boolean b = player1.forceToDraw();
+        Assert.assertEquals(true, b);
+        boolean b1 = player1.drawPlay(new Card(6, Suit.D));
+        System.out.println("the card draw is 6D");
+        Assert.assertEquals(false, b1);
+        b1 = player1.drawPlay(new Card(5, Suit.C));
+        System.out.println("the card draw is 5C");
+        if (b1) {
+            System.out.println("the card played is 5C");
+        }
+        Assert.assertEquals(true, b1);
+    }
+
+    @Test
+    public void test65() {
+        crazyEights.setTopCard(new Card(7, Suit.C));
+        System.out.println("top card is " + crazyEights.getTopCard());
+        player1.addCard(new Card(3, Suit.H));
+        System.out.println("car list is " + player1.getCardList());
+        boolean b = player1.forceToDraw();
+        Assert.assertEquals(true, b);
+        boolean b1 = player1.drawPlay(new Card(6, Suit.D));
+        System.out.println("the card draw is 6D");
+        Assert.assertEquals(false, b1);
+        b1 = player1.drawPlay(new Card(5, Suit.S));
+        System.out.println("the card draw is 5S");
+        Assert.assertEquals(false, b1);
+        b1 = player1.drawPlay(new Card(7, Suit.H));
+        System.out.println("the card draw is 7H");
+        if (b1) {
+            System.out.println("the card played is 7H");
+        }
+        Assert.assertEquals(true, b1);
+    }
+
+    @Test
+    public void test66() {
+        crazyEights.setTopCard(new Card(7, Suit.C));
+        System.out.println("top card is " + crazyEights.getTopCard());
+        player1.addCard(new Card(3, Suit.H));
+        System.out.println("car list is " + player1.getCardList());
+        boolean b = player1.forceToDraw();
+        Assert.assertEquals(true, b);
+        boolean b1 = player1.drawPlay(new Card(6, Suit.D));
+        System.out.println("the card draw is 6D");
+        Assert.assertEquals(false, b1);
+        b1 = player1.drawPlay(new Card(5, Suit.S));
+        System.out.println("the card draw is 5S");
+        Assert.assertEquals(false, b1);
+        b1 = player1.drawPlay(new Card(4, Suit.H));
+        System.out.println("the card draw is 4H");
+        if (!b1) {
+            System.out.println("cannot play");
+        }
+        Assert.assertEquals(false, b1);
+    }
+
+    @Test
+    public void test67() {
+        crazyEights.setTopCard(new Card(7, Suit.C));
+        System.out.println("top card is " + crazyEights.getTopCard());
+        player1.addCard(new Card(3, Suit.H));
+        System.out.println("car list is " + player1.getCardList());
+        boolean b = player1.forceToDraw();
+        Assert.assertEquals(true, b);
+        boolean b1 = player1.drawPlay(new Card(6, Suit.D));
+        System.out.println("the card draw is 6D");
+        Assert.assertEquals(false, b1);
+        b1 = player1.drawPlay(new Card(8, Suit.H));
+        System.out.println("the card draw is 8H");
+        if (!b1) {
+            System.out.println("the card played is 8H");
+        }
+        Assert.assertEquals(true, b1);
+        if (crazyEights.getTopCard().getValue() == 8) {
+            System.out.println("choose a suit");
+        }
+    }
+
+    @Test
+    public void test68() {
+        crazyEights.setTopCard(new Card(7, Suit.C));
+        System.out.println("top card is " + crazyEights.getTopCard());
+        player1.addCard(new Card(3, Suit.H)).addCard(new Card(13, Suit.S));
+        System.out.println("car list is " + player1.getCardList());
+        player1.draw(new Card(6, Suit.C));
+        System.out.println("the card draw is 6C");
+        boolean b = player1.canPlay(new Card(6, Suit.C));
+        System.out.println("the card played is 6C");
         Assert.assertEquals(true, b);
     }
 
     @Test
-    public void testForceToDrawWithTwo() {
+    public void test69() {
+        crazyEights.setTopCard(new Card(7, Suit.C));
+        System.out.println("top card is " + crazyEights.getTopCard());
+        player1.addCard(new Card(3, Suit.H)).addCard(new Card(13, Suit.S));
+        System.out.println("car list is " + player1.getCardList());
+        player1.draw(new Card(6, Suit.C));
+        System.out.println("the card draw is 6C");
+        boolean b = player1.canPlay(new Card(3, Suit.C));
+        System.out.println("the card played is 3C");
+        Assert.assertEquals(true, b);
+    }
+
+    @Test
+    public void test70() {
+        crazyEights.setTopCard(new Card(7, Suit.C));
+        System.out.println("top card is " + crazyEights.getTopCard());
+        player2.addCard(new Card(8, Suit.C)).addCard(new Card(13, Suit.S));
+        System.out.println("car list is " + player1.getCardList());
+        player2.draw(new Card(6, Suit.D));
+        System.out.println("the card draw is 6C");
+        boolean b = player1.canPlay(new Card(8, Suit.C));
+        System.out.println("the card played is 8C");
+        Assert.assertEquals(true, b);
+        System.out.println("choose a suit");
+
+    }
+
+    @Test
+    public void test73() {
         crazyEights.setTopCard(new Card(2, Suit.C));
         System.out.println("top card is " + crazyEights.getTopCard());
+        player2.addCard(new Card(4, Suit.H));
+        System.out.println("car list is " + player1.getCardList());
         int nextDrawNum = crazyEights.getNextDrawNum();
         System.out.println("next player need to draw " + nextDrawNum + " cards");
-        player1.addCard(new Card(2, Suit.S));
-        player1.playCard(0, true);
+        player2.draw(new Card(6, Suit.C));
+        player2.draw(new Card(9, Suit.D));
+        boolean b = player2.canPlay(new Card(6, Suit.C));
+        System.out.println("the card played is 6C");
+        Assert.assertEquals(true, b);
+    }
+
+    @Test
+    public void test74() {
+        crazyEights.setTopCard(new Card(2, Suit.C));
+        System.out.println("top card is " + crazyEights.getTopCard());
+        player2.addCard(new Card(4, Suit.H));
+        System.out.println("car list is " + player1.getCardList());
+        int nextDrawNum = crazyEights.getNextDrawNum();
+        System.out.println("next player need to draw " + nextDrawNum + " cards");
+        player2.draw(new Card(6, Suit.S));
+        player2.draw(new Card(9, Suit.D));
+        player2.draw(new Card(9, Suit.H));
+        player2.draw(new Card(6, Suit.C));
+        boolean b = player2.canPlay(new Card(6, Suit.C));
+        System.out.println("the card played is 6C");
+        Assert.assertEquals(true, b);
+    }
+
+    @Test
+    public void test75() {
+        crazyEights.setTopCard(new Card(2, Suit.C));
+        System.out.println("top card is " + crazyEights.getTopCard());
+        player2.addCard(new Card(4, Suit.H));
+        System.out.println("car list is " + player1.getCardList());
+        int nextDrawNum = crazyEights.getNextDrawNum();
+        System.out.println("next player need to draw " + nextDrawNum + " cards");
+        player2.draw(new Card(6, Suit.S));
+        player2.draw(new Card(9, Suit.D));
+        player2.draw(new Card(9, Suit.H));
+        player2.draw(new Card(6, Suit.C));
+        player2.draw(new Card(5, Suit.H));
+        System.out.println("car list is " + player2.getCardList());
+        System.out.println("turn end");
+    }
+
+    @Test
+    public void test76() {
+        crazyEights.setTopCard(new Card(2, Suit.C));
+        System.out.println("top card is " + crazyEights.getTopCard());
+        player2.addCard(new Card(4, Suit.H));
+        System.out.println("car list is " + player1.getCardList());
+        int nextDrawNum = crazyEights.getNextDrawNum();
+        System.out.println("next player need to draw " + nextDrawNum + " cards");
+        player2.draw(new Card(6, Suit.S));
+        player2.draw(new Card(8, Suit.D));
+        player2.draw(new Card(5, Suit.S));
+        boolean b = player2.canPlay(new Card(8, Suit.D));
+        System.out.println("the card played is 8D");
+        Assert.assertEquals(true, b);
+    }
+
+    @Test
+    public void test77() {
+        crazyEights.setTopCard(new Card(2, Suit.C));
+        System.out.println("top card is " + crazyEights.getTopCard());
+        player2.addCard(new Card(4, Suit.H));
+        System.out.println("car list is " + player1.getCardList());
+        int nextDrawNum = crazyEights.getNextDrawNum();
+        System.out.println("next player need to draw " + nextDrawNum + " cards");
+        player2.draw(new Card(2, Suit.H));
+        player2.draw(new Card(9, Suit.D));
+        player2.playCard(new Card(2, Suit.H), true);
         nextDrawNum = crazyEights.getNextDrawNum();
         System.out.println("next player need to draw " + nextDrawNum + " cards");
-        Assert.assertEquals(4, nextDrawNum);
+        player3.draw(new Card(5, Suit.S));
+        player3.draw(new Card(6, Suit.D));
+        player3.draw(new Card(6, Suit.C));
+        player3.draw(new Card(7, Suit.C));
+        boolean b = player2.canPlay(new Card(6, Suit.C));
+        System.out.println("the card played is 6C");
+        Assert.assertEquals(true, b);
     }
 
     @Test
-    public void testDraw() {
+    public void test79() {
         crazyEights.setTopCard(new Card(2, Suit.C));
         System.out.println("top card is " + crazyEights.getTopCard());
-        player1.addCard(new Card(1, Suit.S));
-        System.out.println("card list before draw is " + player1.getCardList());
-        player1.draw();
-        System.out.println("card list after draw is " + player1.getCardList());
-        Assert.assertEquals(2, player1.getCardNum());
+        player2.addCard(new Card(4, Suit.C)).addCard(new Card(6, Suit.C)).addCard(new Card(9, Suit.D));
+        System.out.println("car list is " + player1.getCardList());
+        int nextDrawNum = crazyEights.getNextDrawNum();
+        System.out.println("next player need to draw " + nextDrawNum + " cards");
+        player2.playCard(new Card(4, Suit.C), true);
+        player2.playCard(new Card(6, Suit.C), true);
     }
 
-    @Test
-    public void testDrawMaxThree() {
-        crazyEights.setTopCard(new Card(2, Suit.C));
-        System.out.println("top card is " + crazyEights.getTopCard());
-        player1.addCard(new Card(1, Suit.S));
-        Card card1 = player1.draw();
-        System.out.println("draw card is " + card1);
-        Card card2 = player1.draw();
-        System.out.println("draw card is " + card2);
-        Card card3 = player1.draw();
-        System.out.println("draw card is " + card3);
-        Card card4 = player1.draw();
-        System.out.println("draw card is " + card4);
-        Assert.assertEquals(false, card1 == Card.NULL_CARD);
-        Assert.assertEquals(false, card2 == Card.NULL_CARD);
-        Assert.assertEquals(false, card3 == Card.NULL_CARD);
-        Assert.assertEquals(true, card4 == Card.NULL_CARD);
-    }
 
     @Test
-    public void testDrawPlay() {
+    public void test80() {
         crazyEights.setTopCard(new Card(2, Suit.C));
         System.out.println("top card is " + crazyEights.getTopCard());
-        player1.addCard(new Card(1, Suit.S));
-        boolean drawPlay = player1.drawPlay(new Card(8, Suit.S));
-        System.out.println("forcing to play a drawn card = " + drawPlay);
-        Assert.assertEquals(true, drawPlay);
+        player2.addCard(new Card(4, Suit.C)).addCard(new Card(6, Suit.C));
+        System.out.println("car list is " + player1.getCardList());
+        int nextDrawNum = crazyEights.getNextDrawNum();
+        System.out.println("next player need to draw " + nextDrawNum + " cards");
+        player2.playCard(new Card(4, Suit.C), true);
+        player2.playCard(new Card(6, Suit.C), true);
     }
+
 }

@@ -87,6 +87,10 @@ public class CrazyEights {
         if (topCard.getValue() == 2) {
             this.nextDrawNum = this.nextDrawNum * 2;
         }
+
+        if (topCard.getValue() == 1) {
+            isClockwise = !isClockwise;
+        }
         this.topCard = topCard;
     }
 
@@ -176,12 +180,16 @@ public class CrazyEights {
             Card topCard = this.getTopCard();
             if (topCard.getValue() == 12) {
                 return calNext(2);
-            } else if (topCard.getValue() == 1) {
-                isClockwise = !isClockwise;
-                return calNext(1);
             }
+            return calNext(1);
+
         }
         return calNext(1);
+    }
+
+    public String getDirection() {
+        if (isClockwise) return "-->";
+        return "<--";
     }
 
     private String calNext(int next) {
