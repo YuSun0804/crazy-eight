@@ -362,9 +362,9 @@ public class IndividualTest {
         System.out.println("next player need to draw " + nextDrawNum + " cards");
         player3.draw(new Card(5, Suit.S));
         player3.draw(new Card(6, Suit.D));
-        player3.draw(new Card(6, Suit.C));
+        player3.draw(new Card(6, Suit.H));
         player3.draw(new Card(7, Suit.C));
-        boolean b = player2.canPlay(new Card(6, Suit.C));
+        boolean b = player2.canPlay(new Card(6, Suit.H));
         System.out.println("the card played is 6C");
         Assert.assertEquals(true, b);
     }
