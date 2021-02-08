@@ -110,32 +110,31 @@ public class GameTest {
         System.out.println("player4's card list is " + player4.getCardList());
         System.out.println("--------------------");
 
-        play(player1, new Card(7, Suit.D));
         play(player2, new Card(9, Suit.D));
         play(player3, new Card(3, Suit.D));
         play(player4, new Card(4, Suit.D));
+        play(player1, new Card(4, Suit.S));
         System.out.println("--------------------");
 
-        play(player1, new Card(4, Suit.S));
         play(player2, new Card(3, Suit.S));
         play(player3, new Card(9, Suit.S));
         play(player4, new Card(7, Suit.S));
+        play(player1, new Card(7, Suit.C));
         System.out.println("--------------------");
 
-        play(player1, new Card(7, Suit.C));
         play(player2, new Card(9, Suit.C));
         play(player3, new Card(3, Suit.C));
         play(player4, new Card(4, Suit.C));
+        play(player1, new Card(4, Suit.H));
         System.out.println("--------------------");
 
-        play(player1, new Card(4, Suit.H));
         play(player2, new Card(3, Suit.H));
         play(player3, new Card(9, Suit.H));
         draw(player4, new Card(13, Suit.S)).draw(player4, new Card(12, Suit.S)).draw(player4, new Card(13, Suit.H));
         play(player4, new Card(13, Suit.H));
+        draw(player1, new Card(6, Suit.D)).draw(player1, new Card(10, Suit.D)).draw(player1, new Card(11, Suit.D));
         System.out.println("--------------------");
 
-        draw(player1, new Card(6, Suit.D)).draw(player1, new Card(10, Suit.D)).draw(player1, new Card(11, Suit.D));
         draw(player2, new Card(6, Suit.S)).draw(player2, new Card(11, Suit.S)).draw(player2, new Card(10, Suit.S));
         play(player3, new Card(5, Suit.H));
         System.out.println("--------------------");

@@ -254,36 +254,36 @@ public class IndividualTest {
         Assert.assertEquals(true, b);
     }
 
-    @Test
-    public void test69() {
-        crazyEights.setTopCard(new Card(7, Suit.C));
-        System.out.println("top card is " + crazyEights.getTopCard());
-        player1.addCard(new Card(3, Suit.H)).addCard(new Card(13, Suit.S));
-        System.out.println("car list is " + player1.getCardList());
-        player1.draw(new Card(6, Suit.C));
-        System.out.println("the card draw is 6C");
-        boolean b = player1.canPlay(new Card(3, Suit.C));
-        System.out.println("the card played is 3C");
-        Assert.assertEquals(true, b);
-    }
+//    @Test
+//    public void test69() {
+//        crazyEights.setTopCard(new Card(7, Suit.C));
+//        System.out.println("top card is " + crazyEights.getTopCard());
+//        player1.addCard(new Card(3, Suit.H)).addCard(new Card(13, Suit.S));
+//        System.out.println("car list is " + player1.getCardList());
+//        player1.draw(new Card(6, Suit.C));
+//        System.out.println("the card draw is 6C");
+//        boolean b = player1.canPlay(new Card(3, Suit.C));
+//        System.out.println("the card played is 3C");
+//        Assert.assertEquals(true, b);
+//    }
+
+//    @Test
+//    public void test70() {
+//        crazyEights.setTopCard(new Card(7, Suit.C));
+//        System.out.println("top card is " + crazyEights.getTopCard());
+//        player2.addCard(new Card(8, Suit.C)).addCard(new Card(13, Suit.S));
+//        System.out.println("car list is " + player1.getCardList());
+//        player2.draw(new Card(6, Suit.D));
+//        System.out.println("the card draw is 6C");
+//        boolean b = player1.canPlay(new Card(8, Suit.C));
+//        System.out.println("the card played is 8C");
+//        Assert.assertEquals(true, b);
+//        System.out.println("choose a suit");
+//
+//    }
 
     @Test
-    public void test70() {
-        crazyEights.setTopCard(new Card(7, Suit.C));
-        System.out.println("top card is " + crazyEights.getTopCard());
-        player2.addCard(new Card(8, Suit.C)).addCard(new Card(13, Suit.S));
-        System.out.println("car list is " + player1.getCardList());
-        player2.draw(new Card(6, Suit.D));
-        System.out.println("the card draw is 6C");
-        boolean b = player1.canPlay(new Card(8, Suit.C));
-        System.out.println("the card played is 8C");
-        Assert.assertEquals(true, b);
-        System.out.println("choose a suit");
-
-    }
-
-    @Test
-    public void test73() {
+    public void test71() {
         crazyEights.setTopCard(new Card(2, Suit.C));
         System.out.println("top card is " + crazyEights.getTopCard());
         player2.addCard(new Card(4, Suit.H));
@@ -298,7 +298,7 @@ public class IndividualTest {
     }
 
     @Test
-    public void test74() {
+    public void test72() {
         crazyEights.setTopCard(new Card(2, Suit.C));
         System.out.println("top card is " + crazyEights.getTopCard());
         player2.addCard(new Card(4, Suit.H));
@@ -315,7 +315,7 @@ public class IndividualTest {
     }
 
     @Test
-    public void test75() {
+    public void test73() {
         crazyEights.setTopCard(new Card(2, Suit.C));
         System.out.println("top card is " + crazyEights.getTopCard());
         player2.addCard(new Card(4, Suit.H));
@@ -332,23 +332,7 @@ public class IndividualTest {
     }
 
     @Test
-    public void test76() {
-        crazyEights.setTopCard(new Card(2, Suit.C));
-        System.out.println("top card is " + crazyEights.getTopCard());
-        player2.addCard(new Card(4, Suit.H));
-        System.out.println("car list is " + player1.getCardList());
-        int nextDrawNum = crazyEights.getNextDrawNum();
-        System.out.println("next player need to draw " + nextDrawNum + " cards");
-        player2.draw(new Card(6, Suit.S));
-        player2.draw(new Card(8, Suit.D));
-        player2.draw(new Card(5, Suit.S));
-        boolean b = player2.canPlay(new Card(8, Suit.D));
-        System.out.println("the card played is 8D");
-        Assert.assertEquals(true, b);
-    }
-
-    @Test
-    public void test77() {
+    public void test74() {
         crazyEights.setTopCard(new Card(2, Suit.C));
         System.out.println("top card is " + crazyEights.getTopCard());
         player2.addCard(new Card(4, Suit.H));
@@ -370,7 +354,7 @@ public class IndividualTest {
     }
 
     @Test
-    public void test79() {
+    public void test76() {
         crazyEights.setTopCard(new Card(2, Suit.C));
         System.out.println("top card is " + crazyEights.getTopCard());
         player2.addCard(new Card(4, Suit.C)).addCard(new Card(6, Suit.C)).addCard(new Card(9, Suit.D));
@@ -383,7 +367,7 @@ public class IndividualTest {
 
 
     @Test
-    public void test80() {
+    public void test77() {
         crazyEights.setTopCard(new Card(2, Suit.C));
         System.out.println("top card is " + crazyEights.getTopCard());
         player2.addCard(new Card(4, Suit.C)).addCard(new Card(6, Suit.C));
